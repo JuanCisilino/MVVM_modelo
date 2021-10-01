@@ -5,22 +5,24 @@ import androidx.lifecycle.ViewModel
 import com.frost.ModelMVVM.model.LocalCurrency
 import com.frost.ModelMVVM.repository.CurrencyRepo
 import com.frost.ModelMVVM.repository.InstanceRepo
+import retrofit2.Retrofit
 import rx.schedulers.Schedulers
 import java.util.ArrayList
 
 class MainViewModel: ViewModel() {
 
     val currencyLiveData = MutableLiveData<List<LocalCurrency>?>()
-    private val instance = InstanceRepo.getRetofitInstance().create(CurrencyRepo::class.java)
+    private lateinit var instance: CurrencyRepo
     private var finalCurrencyList = ArrayList<LocalCurrency>()
 
-    suspend fun makeApiCall() {
+    fun makeApiCall() {
+        instance = InstanceRepo.getRetofitInstance().create(CurrencyRepo::class.java)
         getOficial()
         getBlue()
         getMinorista()
     }
 
-    private suspend fun getOficial(){
+    private fun getOficial(){
         instance.getOficialUsd()
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
@@ -29,7 +31,7 @@ class MainViewModel: ViewModel() {
                 {getNegativeAnswer()})
     }
 
-    private suspend fun getBlue(){
+    private fun getBlue(){
         instance.getBlueUsd()
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
@@ -38,8 +40,8 @@ class MainViewModel: ViewModel() {
                 {getNegativeAnswer()})
     }
 
-    private suspend fun getMinorista(){
-        instance.getOficialUsd()
+    private fun getMinorista(){
+        instance.getUsdMinorista()
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe(
