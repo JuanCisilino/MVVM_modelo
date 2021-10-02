@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.frost.ModelMVVM.R
+import com.frost.ModelMVVM.databinding.ItemCurrencyBinding
 import com.frost.ModelMVVM.model.LocalCurrency
-import kotlinx.android.synthetic.main.item_currency.view.*
 
 class CurrencyAdapter: RecyclerView.Adapter<CurrencyAdapter.CurrencyHolder>() {
 
@@ -28,9 +28,11 @@ class CurrencyAdapter: RecyclerView.Adapter<CurrencyAdapter.CurrencyHolder>() {
 
     inner class CurrencyHolder(private val view: View): RecyclerView.ViewHolder(view){
 
+        private val binding = ItemCurrencyBinding.bind(view)
+
         fun bind(currency: LocalCurrency){
-            view.nameTextView.text = currency.name
-            view.releaseTextView.text = currency.v.toString()
+            binding.nameTextView.text = currency.name
+            binding.releaseTextView.text = currency.v.toString()
         }
 
     }

@@ -6,17 +6,19 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.frost.ModelMVVM.adapter.CurrencyAdapter
+import com.frost.ModelMVVM.databinding.ActivityMainBinding
 import com.frost.ModelMVVM.model.LocalCurrency
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     private val viewModel by lazy { ViewModelProvider(this).get(MainViewModel::class.java) }
     private lateinit var currAdapter: CurrencyAdapter
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         setUpRecycler()
         viewModel.makeApiCall()
         subscribeToLiveData()
@@ -34,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpRecycler() {
         currAdapter = CurrencyAdapter()
-        recyclerView.layoutManager = GridLayoutManager(this, 3)
-        recyclerView.adapter = currAdapter
+        binding.recyclerView.layoutManager = GridLayoutManager(this, 3)
+        binding.recyclerView.adapter = currAdapter
     }
 }
