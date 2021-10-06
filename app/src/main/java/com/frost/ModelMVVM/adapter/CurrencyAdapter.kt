@@ -11,6 +11,7 @@ import com.frost.ModelMVVM.model.LocalCurrency
 class CurrencyAdapter: RecyclerView.Adapter<CurrencyAdapter.CurrencyHolder>() {
 
     private var currencyList = ArrayList<LocalCurrency>()
+    var onClickCallback: ((value: Double) -> Unit)?= null
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -33,6 +34,7 @@ class CurrencyAdapter: RecyclerView.Adapter<CurrencyAdapter.CurrencyHolder>() {
         fun bind(currency: LocalCurrency){
             binding.nameTextView.text = currency.name
             binding.releaseTextView.text = currency.v.toString()
+            view.setOnClickListener { currency.v?.let { it -> onClickCallback?.invoke(it) } }
         }
 
     }

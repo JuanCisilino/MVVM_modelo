@@ -21,7 +21,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setUpRecycler()
         viewModel.makeApiCall()
+        setListeners()
         subscribeToLiveData()
+    }
+
+    private fun setListeners() {
+        currAdapter.onClickCallback = { loadSelectedCurrency(it) }
+        binding.button.setOnClickListener { calculate() }
+    }
+
+    private fun calculate() {
+        val amount = binding.editText.text.toString().toDouble()
+        val price = binding.selectedTextView.text.toString().toDouble()
+        binding.resultTextView.text = (amount * price).toString()
     }
 
     private fun subscribeToLiveData() {
@@ -38,5 +50,9 @@ class MainActivity : AppCompatActivity() {
         currAdapter = CurrencyAdapter()
         binding.recyclerView.layoutManager = GridLayoutManager(this, 3)
         binding.recyclerView.adapter = currAdapter
+    }
+
+    private fun loadSelectedCurrency(value: Double) {
+        binding.selectedTextView.text = value.toString()
     }
 }
