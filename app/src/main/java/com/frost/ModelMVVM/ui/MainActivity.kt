@@ -1,17 +1,19 @@
-package com.frost.ModelMVVM
+package com.frost.ModelMVVM.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.frost.ModelMVVM.adapter.CurrencyAdapter
+import com.frost.ModelMVVM.ui.adapter.CurrencyAdapter
 import com.frost.ModelMVVM.databinding.ActivityMainBinding
 import com.frost.ModelMVVM.model.LocalCurrency
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel by lazy { ViewModelProvider(this).get(MainViewModel::class.java) }
+    private val viewModel by viewModels<MainViewModel>()
     private lateinit var currAdapter: CurrencyAdapter
     private lateinit var binding: ActivityMainBinding
 
@@ -19,8 +21,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        viewModel.onCreate()
         setUpRecycler()
-        viewModel.makeApiCall()
         setListeners()
         subscribeToLiveData()
     }
@@ -37,12 +39,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun subscribeToLiveData() {
-        viewModel.currencyLiveData.observe(this, { loadList(it) })
+        viewModel.currencyLiveData.observe(this) { loadList(it) }
     }
 
     private fun loadList(currencyList: List<LocalCurrency>?) {
         currencyList
-            ?.let { currAdapter.setList(it) }
+            ?.let { currAdapter.updateItems(it) }
             ?:run { Toast.makeText(this, "Error al cargar la lista", Toast.LENGTH_SHORT).show() }
     }
 

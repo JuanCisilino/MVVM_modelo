@@ -1,8 +1,9 @@
-package com.frost.ModelMVVM.adapter
+package com.frost.ModelMVVM.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.frost.ModelMVVM.R
 import com.frost.ModelMVVM.databinding.ItemCurrencyBinding
@@ -10,8 +11,25 @@ import com.frost.ModelMVVM.model.LocalCurrency
 
 class CurrencyAdapter: RecyclerView.Adapter<CurrencyAdapter.CurrencyHolder>() {
 
-    private var currencyList = ArrayList<LocalCurrency>()
+    private var currencyList = listOf<LocalCurrency>()
     var onClickCallback: ((value: Double) -> Unit)?= null
+
+    fun updateItems(newItems: List<LocalCurrency>) {
+        val diffResult = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
+            override fun getOldListSize() = currencyList.size
+
+            override fun getNewListSize() = newItems.size
+
+            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+                currencyList[oldItemPosition].name == newItems[newItemPosition].name
+
+            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+                currencyList[oldItemPosition] == newItems[newItemPosition]
+
+        })
+        currencyList = newItems
+        diffResult.dispatchUpdatesTo(this)
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -39,8 +57,4 @@ class CurrencyAdapter: RecyclerView.Adapter<CurrencyAdapter.CurrencyHolder>() {
 
     }
 
-    fun setList(list: List<LocalCurrency>){
-        currencyList = list as ArrayList<LocalCurrency>
-        this.notifyDataSetChanged()
-    }
 }
