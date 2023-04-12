@@ -2,9 +2,10 @@ package com.frost.model_mvvm.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import androidx.activity.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
-import com.frost.model_mvvm.ui.adapter.CurrencyAdapter
 import com.frost.model_mvvm.databinding.ActivityMainBinding
 import com.frost.model_mvvm.model.LocalCurrency
 import com.frost.model_mvvm.utils.*
@@ -14,7 +15,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<MainViewModel>()
-    private lateinit var currAdapter: CurrencyAdapter
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         checkAndCreate()
-        setUpRecycler()
         setListeners()
         subscribeToLiveData()
     }
@@ -36,8 +35,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setListeners() {
-        currAdapter.onClickCallback = { loadSelectedCurrency(it) }
+        binding.customView.onClickCallback = { loadSelectedCurrency(it) }
+        setSearchField()
         binding.button.setOnClickListener { calculate() }
+    }
+
+    private fun setSearchField(){
+        binding.editText.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
+            if (!hasFocus) { checkIfFocus(view) }
+        }
+        binding.editText.setOnEditorActionListener { view, actionId, _ -> onActionDone(actionId, view) }
+    }
+
+    private fun onActionDone(actionId: Int, view: TextView) =
+        if (actionId == EditorInfo.IME_ACTION_DONE){
+            checkIfFocus(view)
+            true
+        } else {
+            false
+        }
+
+    private fun checkIfFocus(view: View) {
+        if (!binding.editText.text.isNullOrEmpty()) {
+            calculate()
+            hide(view)
+        }
     }
 
     private fun calculate() {
@@ -48,24 +70,27 @@ class MainActivity : AppCompatActivity() {
 
     private fun subscribeToLiveData() {
         viewModel.currencyLiveData.observe(this) { loadList(it) }
+        viewModel.loadStateLiveData.observe(this) { handleLoadingState(it) }
+    }
+
+    private fun handleLoadingState(state: LoadState) {
+        when (state) {
+            LoadState.Loading -> { binding.customView.showLoading() }
+            LoadState.Success -> { binding.customView.showItems() }
+            else -> {}
+        }
     }
 
     private fun loadList(currencyList: List<LocalCurrency>?) {
         currencyList
             ?.let {
                 checkAndSave(it)
-                currAdapter.updateItems(it) }
+                binding.customView.updateItems(it) }
             ?:run { showToast(this, "Error al cargar la lista") }
     }
 
     private fun checkAndSave(currencyList: List<LocalCurrency>){
         currencyList.forEach { savePrefs(it.name?:"", it.v?:0.0) }
-    }
-
-    private fun setUpRecycler() {
-        currAdapter = CurrencyAdapter()
-        binding.recyclerView.layoutManager = GridLayoutManager(this, 3)
-        binding.recyclerView.adapter = currAdapter
     }
 
     private fun loadSelectedCurrency(value: Double) {

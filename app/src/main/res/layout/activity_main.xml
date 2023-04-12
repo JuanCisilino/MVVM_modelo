@@ -7,10 +7,11 @@
     android:layout_height="match_parent"
     tools:context="com.frost.model_mvvm.ui.MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <com.frost.model_mvvm.ui.cv.ItemsCustomView
+        android:id="@+id/customView"
         android:padding="10dp"
-        android:layout_width="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +25,7 @@
         android:text="Selecciona la divisa a cambiar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        app:layout_constraintTop_toBottomOf="@+id/customView" />
 
     <TextView
         android:id="@+id/selectedTextView"

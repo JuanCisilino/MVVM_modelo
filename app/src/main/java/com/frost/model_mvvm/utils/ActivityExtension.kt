@@ -9,9 +9,6 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.temporal.ChronoUnit
-import java.util.Date
-import java.util.Locale
-import java.util.TimeZone
 
 fun showToast(context: Context, message: String){
     Toast.makeText(context, message, Toast.LENGTH_LONG).show()

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.frost.model_mvvm.model.LocalCurrency
 import com.frost.model_mvvm.uc.CurrencyUseCase
+import com.frost.model_mvvm.utils.LoadState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.ArrayList
@@ -15,15 +16,17 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(private val useCase: CurrencyUseCase): ViewModel() {
 
     val currencyLiveData = MutableLiveData<List<LocalCurrency>?>()
+    var loadStateLiveData = MutableLiveData<LoadState>()
     private var finalCurrencyList = ArrayList<LocalCurrency>()
 
-    fun onCreate(isOtherDay: Boolean, pref: SharedPreferences) {
+    fun onCreate(isOtherDay: Boolean, pref: SharedPreferences?=null) {
+        loadStateLiveData.postValue(LoadState.Loading)
         if (isOtherDay){
             getOficial()
             getBlue()
             getMinorista()
         } else {
-            createList(pref)
+            createList(pref!!)
             check()
         }
     }
@@ -70,6 +73,7 @@ class MainViewModel @Inject constructor(private val useCase: CurrencyUseCase): V
     }
 
     private fun getNegativeAnswer(){
+        loadStateLiveData.postValue(LoadState.Error)
         currencyLiveData.postValue(null)
     }
 
@@ -81,6 +85,11 @@ class MainViewModel @Inject constructor(private val useCase: CurrencyUseCase): V
     }
 
     private fun check() {
-        if (finalCurrencyList.size == 3) currencyLiveData.postValue(finalCurrencyList)
+        if (finalCurrencyList.size == 3) {
+            loadStateLiveData.postValue(LoadState.Success)
+            currencyLiveData.postValue(finalCurrencyList)
+        } else {
+            loadStateLiveData.postValue(LoadState.Error)
+        }
     }
 }

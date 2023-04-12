@@ -24,7 +24,7 @@ object AppModule {
             .addInterceptor{ chain ->
                 val request = chain.request()
                     .newBuilder()
-                    .header("Authorization", "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTI4NDEyMDIsInR5cGUiOiJleHRlcm5hbCIsInVzZXIiOiJqdWFuLmNpc2lsaW5vQGF2YWxpdGgubmV0In0.4jZyPed6QVUUJsuk_XLN7atjbelhgbK68NvKNKkqvt4ZxC5l4Te0GQb_XFKAiygCgBl_-6Z65T6BA8G6GCEMSQ")
+                    .header("Authorization", "Bearer API_KEY")
                     .build()
                 chain.proceed(request)
             }

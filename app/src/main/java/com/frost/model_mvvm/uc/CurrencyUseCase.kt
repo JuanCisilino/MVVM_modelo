@@ -8,7 +8,7 @@ class CurrencyUseCase @Inject constructor(private val repo: CurrencyRepository) 
 
     suspend fun getBlue(): List<LocalCurrency>?{
         val list = repo.getBlue()
-        return if (list.isNotEmpty()) list else null
+        return list.ifEmpty { null }
     }
 
     suspend fun getOficial(): List<LocalCurrency>?{
