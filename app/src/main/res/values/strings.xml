@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ModelMVVM</string>
+    <string name="appwidget_blue">BLUE</string>
+    <string name="appwidget_oficial">OFICIAL</string>
+    <string name="appwidget_minorista">MINORISTA</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+    <string name="prefs_file">com.frost.ModelMVVM.PREFERENCE_FILE_KEY</string>
 </resources>

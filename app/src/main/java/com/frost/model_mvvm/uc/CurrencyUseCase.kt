@@ -1,7 +1,7 @@
-package com.frost.ModelMVVM.uc
+package com.frost.model_mvvm.uc
 
-import com.frost.ModelMVVM.model.LocalCurrency
-import com.frost.ModelMVVM.repository.CurrencyRepository
+import com.frost.model_mvvm.model.LocalCurrency
+import com.frost.model_mvvm.repository.CurrencyRepository
 import javax.inject.Inject
 
 class CurrencyUseCase @Inject constructor(private val repo: CurrencyRepository) {

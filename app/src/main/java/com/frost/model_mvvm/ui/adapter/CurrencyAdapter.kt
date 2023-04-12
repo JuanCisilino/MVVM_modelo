@@ -1,13 +1,13 @@
-package com.frost.ModelMVVM.ui.adapter
+package com.frost.model_mvvm.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.frost.ModelMVVM.R
-import com.frost.ModelMVVM.databinding.ItemCurrencyBinding
-import com.frost.ModelMVVM.model.LocalCurrency
+import com.frost.model_mvvm.R
+import com.frost.model_mvvm.databinding.ItemCurrencyBinding
+import com.frost.model_mvvm.model.LocalCurrency
 
 class CurrencyAdapter: RecyclerView.Adapter<CurrencyAdapter.CurrencyHolder>() {
 

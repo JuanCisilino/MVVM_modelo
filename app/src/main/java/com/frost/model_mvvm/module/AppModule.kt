@@ -1,9 +1,8 @@
-package com.frost.ModelMVVM.module
+package com.frost.model_mvvm.module
 
-import androidx.viewbinding.BuildConfig
-import com.frost.ModelMVVM.repository.CurrencyRepository
-import com.frost.ModelMVVM.service.CurrencyApi
-import com.frost.ModelMVVM.uc.CurrencyUseCase
+import com.frost.model_mvvm.repository.CurrencyRepository
+import com.frost.model_mvvm.service.CurrencyApi
+import com.frost.model_mvvm.uc.CurrencyUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,7 +24,7 @@ object AppModule {
             .addInterceptor{ chain ->
                 val request = chain.request()
                     .newBuilder()
-                    .header("Authorization", "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTI3NzMxNDMsInR5cGUiOiJleHRlcm5hbCIsInVzZXIiOiJqdWFuLmNpc2lsaW5vQGdtYWlsLmNvbSJ9.Wl7_vGAgHGI92jDn-h-TTViLDoIv0ry7m2wVgNkzwwF0_MT9pGG9fuOo84xFjl6sNginST_mWr4vqQRyxs7czQ")
+                    .header("Authorization", "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTI4NDEyMDIsInR5cGUiOiJleHRlcm5hbCIsInVzZXIiOiJqdWFuLmNpc2lsaW5vQGF2YWxpdGgubmV0In0.4jZyPed6QVUUJsuk_XLN7atjbelhgbK68NvKNKkqvt4ZxC5l4Te0GQb_XFKAiygCgBl_-6Z65T6BA8G6GCEMSQ")
                     .build()
                 chain.proceed(request)
             }

@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.frost.ModelMVVM">
+    package="com.frost.model_mvvm">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".App"
+        android:name="com.frost.model_mvvm.App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="Cotizacion del dolar argentum"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/icon"
+        android:label="Cotizacion del dolar en Argentina"
+        android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.ModelMVVM">
+        <receiver
+            android:name="com.frost.model_mvvm.widget.CurrencyWidget"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/currency_widget_info" />
+        </receiver>
+
         <activity
-            android:name="com.frost.ModelMVVM.ui.MainActivity"
+            android:name="com.frost.model_mvvm.ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

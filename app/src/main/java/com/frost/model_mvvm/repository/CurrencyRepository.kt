@@ -1,7 +1,7 @@
-package com.frost.ModelMVVM.repository
+package com.frost.model_mvvm.repository
 
-import com.frost.ModelMVVM.model.LocalCurrency
-import com.frost.ModelMVVM.service.CurrencyApi
+import com.frost.model_mvvm.model.LocalCurrency
+import com.frost.model_mvvm.service.CurrencyApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

@@ -1,4 +1,4 @@
-package com.frost.ModelMVVM
+package com.frost.model_mvvm
 
 import org.junit.Test
 

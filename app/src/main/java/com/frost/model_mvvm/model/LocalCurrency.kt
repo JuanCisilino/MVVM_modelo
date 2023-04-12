@@ -1,4 +1,4 @@
-package com.frost.ModelMVVM.model
+package com.frost.model_mvvm.model
 
 import androidx.recyclerview.widget.DiffUtil
 import java.io.Serializable

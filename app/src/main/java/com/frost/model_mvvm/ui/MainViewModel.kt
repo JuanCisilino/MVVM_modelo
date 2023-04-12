@@ -1,10 +1,11 @@
-package com.frost.ModelMVVM.ui
+package com.frost.model_mvvm.ui
 
+import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.frost.ModelMVVM.model.LocalCurrency
-import com.frost.ModelMVVM.uc.CurrencyUseCase
+import com.frost.model_mvvm.model.LocalCurrency
+import com.frost.model_mvvm.uc.CurrencyUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.ArrayList
@@ -16,18 +17,33 @@ class MainViewModel @Inject constructor(private val useCase: CurrencyUseCase): V
     val currencyLiveData = MutableLiveData<List<LocalCurrency>?>()
     private var finalCurrencyList = ArrayList<LocalCurrency>()
 
-    fun onCreate() {
-        getOficial()
-        getBlue()
-        getMinorista()
+    fun onCreate(isOtherDay: Boolean, pref: SharedPreferences) {
+        if (isOtherDay){
+            getOficial()
+            getBlue()
+            getMinorista()
+        } else {
+            createList(pref)
+            check()
+        }
     }
+
+    private fun createList(pref: SharedPreferences) {
+        finalCurrencyList.add(createLocalCurrency(pref, "blue"))
+        finalCurrencyList.add(createLocalCurrency(pref, "oficial"))
+        finalCurrencyList.add(createLocalCurrency(pref, "minorista"))
+    }
+
+    private fun createLocalCurrency(pref: SharedPreferences, name: String) = LocalCurrency(
+        v = pref.getString(name, "0.0")?.toDouble(),
+        name = name)
 
     private fun getOficial(){
         viewModelScope.launch {
             val result =  useCase.getOficial()
 
             result
-                ?.let { getPositiveAnswer(it, "Dolar Oficial") }
+                ?.let { getPositiveAnswer(it, "oficial") }
                 ?:run { getNegativeAnswer() }
         }
 
@@ -38,7 +54,7 @@ class MainViewModel @Inject constructor(private val useCase: CurrencyUseCase): V
             val result =  useCase.getBlue()
 
             result
-                ?.let { getPositiveAnswer(it, "Dolar Blue") }
+                ?.let { getPositiveAnswer(it, "blue") }
                 ?:run { getNegativeAnswer() }
         }
     }
@@ -48,7 +64,7 @@ class MainViewModel @Inject constructor(private val useCase: CurrencyUseCase): V
             val result =  useCase.getMinorista()
 
             result
-                ?.let { getPositiveAnswer(it, "Dolar Minorista") }
+                ?.let { getPositiveAnswer(it, "minorista") }
                 ?:run { getNegativeAnswer() }
         }
     }
