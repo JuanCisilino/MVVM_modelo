@@ -37,9 +37,10 @@ class MainViewModel @Inject constructor(private val useCase: CurrencyUseCase): V
         finalCurrencyList.add(createLocalCurrency(pref, "minorista"))
     }
 
-    private fun createLocalCurrency(pref: SharedPreferences, name: String) = LocalCurrency(
-        v = pref.getString(name, "0.0")?.toDouble(),
-        name = name)
+    private fun createLocalCurrency(pref: SharedPreferences, name: String) =
+        LocalCurrency(
+            v = pref.getString(name, "0.0")?.toDouble(),
+            name = name)
 
     private fun getOficial(){
         viewModelScope.launch {
@@ -49,7 +50,6 @@ class MainViewModel @Inject constructor(private val useCase: CurrencyUseCase): V
                 ?.let { getPositiveAnswer(it, "oficial") }
                 ?:run { getNegativeAnswer() }
         }
-
     }
 
     private fun getBlue(){
@@ -88,8 +88,6 @@ class MainViewModel @Inject constructor(private val useCase: CurrencyUseCase): V
         if (finalCurrencyList.size == 3) {
             loadStateLiveData.postValue(LoadState.Success)
             currencyLiveData.postValue(finalCurrencyList)
-        } else {
-            loadStateLiveData.postValue(LoadState.Error)
         }
     }
 }

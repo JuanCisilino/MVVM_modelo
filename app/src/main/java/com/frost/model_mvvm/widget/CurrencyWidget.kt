@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Build.VERSION_CODES
+import android.os.Bundle
 import android.widget.RemoteViews
 import androidx.annotation.RestrictTo
 import com.frost.model_mvvm.R
@@ -26,13 +27,19 @@ class CurrencyWidget : AppWidgetProvider() {
         if (appWidgetIds.isEmpty()) return
 
         val views = RemoteViews(context.packageName, R.layout.currency_widget)
-        val widgetPendingIntent = PendingIntent
-            .getBroadcast(context, 0, Intent(context, MainActivity::class.java), PendingIntent.FLAG_IMMUTABLE)
-        views.setOnClickPendingIntent(R.id.widget_layout, widgetPendingIntent)
+
+        val intent = context.packageManager.getLaunchIntentForPackage(context.packageName)
+        intent?.let {
+            it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            val pendingIntent = PendingIntent.getActivity(context, 0, it, PendingIntent.FLAG_UPDATE_CURRENT)
+            views.setOnClickPendingIntent(R.id.widget_layout, pendingIntent)
+        }
+
+        val id = appWidgetManager.getAppWidgetIds(ComponentName(context, CurrencyWidget::class.java))
 
         getDataAndSetView(context, views)
 
-        appWidgetManager.updateAppWidget(appWidgetIds[0], views)
+        appWidgetManager.updateAppWidget(id, views)
     }
 
     override fun onEnabled(context: Context) {
