@@ -18,11 +18,15 @@ class MainViewModel @Inject constructor(private val useCase: CurrencyUseCase): V
 
     val currencyLiveData = MutableLiveData<List<LocalCurrency>?>()
     var loadStateLiveData = MutableLiveData<LoadState>()
-    var finalCurrencyList = ArrayList<LocalCurrency>()
-    //private lateinit var context: Context
+    private var finalCurrencyList = ArrayList<LocalCurrency>()
+    lateinit var context: Context
+    private set
+
+    fun init(contex: Context){
+        context = contex
+    }
 
     fun onCreate() {
-        //context = contex
         loadStateLiveData.postValue(LoadState.Loading)
         finalCurrencyList.clear()
         getTodos()
@@ -55,17 +59,16 @@ class MainViewModel @Inject constructor(private val useCase: CurrencyUseCase): V
 
     private fun check() {
         if (finalCurrencyList.size == 3) {
-            //save()
             loadStateLiveData.postValue(LoadState.Success)
             currencyLiveData.postValue(finalCurrencyList)
         }
     }
 
-    /*private fun save(){
+    fun save(){
         val prefs = context.getSharedPreferences("prefs_file", Context.MODE_PRIVATE)
         prefs.edit()?.clear()?.apply()
         val editor = prefs.edit()
         finalCurrencyList.forEach { editor.putString(it.name?:"", it.v?:"0.0") }
         editor.apply()
-    }*/
+    }
 }

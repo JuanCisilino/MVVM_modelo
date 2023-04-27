@@ -29,12 +29,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel.onCreate()
+        viewModel.init(applicationContext)
         setListeners()
         subscribeToLiveData()
     }
 
     private fun setListeners() {
+        viewModel.onCreate()
         binding.customView.onClickCallback = { loadSelectedCurrency(it) }
         setSearchField()
         binding.button.setOnClickListener { calculate() }
@@ -88,6 +89,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateWidgetAndSetData(localCurrencyList: List<LocalCurrency>) {
+        viewModel.save()
         updateWidget()
         binding.customView.updateItems(localCurrencyList)
     }

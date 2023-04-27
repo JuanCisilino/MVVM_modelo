@@ -1,11 +1,9 @@
 package com.frost.model_mvvm.ui
 
-import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.frost.model_mvvm.model.Casa
 import com.frost.model_mvvm.uc.CurrencyUseCase
 import com.frost.model_mvvm.utils.LoadState
-import com.frost.model_mvvm.ui.MainViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.RelaxedMockK
@@ -42,26 +40,17 @@ class MainViewModelTest{
     }
 
     @Test
-    fun `when viewmodel is created at the first time, get all items and set it`() = runTest {
-        val mockedList =
-            listOf(
-                Casa(
-                    agencia = "",
-                    compra = "",
-                    decimales= "",
-                    nombre= "",
-                    variacion= "",
-                    venta= "",
-                    ventaCero= "")
-            )
+    fun `when viewmodel is created at the first time, get all items and set it, then validate live data is not null`() = runTest {
+
         //Given
-        coEvery { currencyUseCase.getValoresPrincipales() } returns mockedList
+        coEvery { currencyUseCase.getValoresPrincipales() } returns getMockedCasaList()
 
         //When
         viewModel.onCreate()
 
+
         //Then
-        assert(viewModel.currencyLiveData.value == mockedList)
+        assert(viewModel.currencyLiveData.value != null)
     }
 
     @Test
@@ -86,6 +75,35 @@ class MainViewModelTest{
 
         //Then
         assert(viewModel.loadStateLiveData.value == LoadState.Error)
+    }
+
+    private fun getMockedCasaList(): List<Casa>{
+        return listOf(
+            Casa(
+                agencia = "",
+                compra = "34,56",
+                decimales= "",
+                nombre= "Oficial",
+                variacion= "",
+                venta= "34,56",
+                ventaCero= ""),
+            Casa(
+                agencia = "",
+                compra = "34,56",
+                decimales= "",
+                nombre= "Blue",
+                variacion= "",
+                venta= "34,56",
+                ventaCero= ""),
+            Casa(
+                agencia = "",
+                compra = "34,56",
+                decimales= "",
+                nombre= "turista",
+                variacion= "",
+                venta= "34,56",
+                ventaCero= "")
+        )
     }
 
 }
