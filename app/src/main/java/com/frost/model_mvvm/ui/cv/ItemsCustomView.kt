@@ -7,6 +7,8 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.frost.model_mvvm.databinding.CustomViewItemsBinding
 import com.frost.model_mvvm.model.LocalCurrency
+import java.text.NumberFormat
+import java.util.*
 
 class ItemsCustomView @JvmOverloads constructor(
     context: Context,
@@ -21,25 +23,31 @@ class ItemsCustomView @JvmOverloads constructor(
 
     init {
         with(binding){
-            blueLayout.setOnClickListener { onClickCallback?.invoke(bluePrice.text.toString().toDouble()) }
-            oficialLayout.setOnClickListener { onClickCallback?.invoke(oficialPrice.text.toString().toDouble()) }
-            minoristaLayout.setOnClickListener { onClickCallback?.invoke(minoristaPrice.text.toString().toDouble()) }
+            blueLayout.setOnClickListener { onClickCallback?.invoke(toDouble(bluePrice.text.toString())) }
+            oficialLayout.setOnClickListener { onClickCallback?.invoke(toDouble(oficialPrice.text.toString())) }
+            minoristaLayout.setOnClickListener { onClickCallback?.invoke(toDouble(minoristaPrice.text.toString())) }
         }
     }
 
+    private fun toDouble(value: String): Double {
+        val format = NumberFormat.getInstance(Locale.getDefault())
+        val number = format.parse(value)
+        return number?.toDouble()?:0.0
+    }
+
     fun updateItems(list: List<LocalCurrency>) {
-        val localBlue = list.find { it.name == "blue" }
-        val localOficial = list.find { it.name == "oficial" }
-        val localMinorista = list.find { it.name == "minorista" }
+        val localBlue = list.find { it.name?.contains("Blue") == true }
+        val localOficial = list.find { it.name?.contains("Oficial") == true }
+        val localMinorista = list.find { it.name?.contains("turista") == true}
         with(binding){
             blue.text = localBlue?.name
-            bluePrice.text = localBlue?.v.toString()
+            bluePrice.text = localBlue?.v
 
             oficial.text = localOficial?.name
-            oficialPrice.text = localOficial?.v.toString()
+            oficialPrice.text = localOficial?.v
 
             minorista.text = localMinorista?.name
-            minoristaPrice.text = localMinorista?.v.toString()
+            minoristaPrice.text = localMinorista?.v
         }
     }
 

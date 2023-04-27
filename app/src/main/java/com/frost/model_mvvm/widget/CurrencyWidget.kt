@@ -6,13 +6,8 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.os.Build
-import android.os.Build.VERSION_CODES
-import android.os.Bundle
 import android.widget.RemoteViews
-import androidx.annotation.RestrictTo
 import com.frost.model_mvvm.R
-import com.frost.model_mvvm.ui.MainActivity
 
 /**
  * Implementation of App Widget functionality.
@@ -53,12 +48,12 @@ class CurrencyWidget : AppWidgetProvider() {
 
 internal fun getDataAndSetView(context: Context, views: RemoteViews){
     val sharedPreferences = context.getSharedPreferences("prefs_file", Context.MODE_PRIVATE)
-    val blue = sharedPreferences?.getString("blue", "0.0")
-    val oficial = sharedPreferences?.getString("oficial", "0.0")
-    val minorista = sharedPreferences?.getString("minorista", "0.0")
+    val blue = sharedPreferences?.getString("Dolar Blue", "0.0")
+    val oficial = sharedPreferences?.getString("Dolar Oficial", "0.0")
+    val minorista = sharedPreferences?.getString("Dolar turista", "0.0")
     // Construct the RemoteViews object
     views.setTextViewText(R.id.appwidget_blue, "Blue\n$$blue")
     views.setTextViewText(R.id.appwidget_oficial, "Oficial\n$$oficial")
-    views.setTextViewText(R.id.appwidget_minorista, "Minorista\n$$minorista")
+    views.setTextViewText(R.id.appwidget_minorista, "Turista\n$$minorista")
 
 }

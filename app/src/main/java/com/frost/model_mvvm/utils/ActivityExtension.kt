@@ -16,10 +16,10 @@ fun showToast(context: Context, message: String){
 
 fun Activity.getPref() = getSharedPreferences("prefs_file", Context.MODE_PRIVATE)
 
-fun Activity.savePrefs(name:String, value: Double){
+fun Activity.savePrefs(name:String, value: String){
     val sharedPreferences = getPref()
     val editor = sharedPreferences.edit()
-    editor.putString(name, value.toString())
+    editor.putString(name, value)
     editor.apply()
 }
 
@@ -45,7 +45,7 @@ fun Activity.isOtherDay(): Boolean{
     timestampGuardado?:run{ return true }
     val localDateGuardado = LocalDateTime.parse(timestampGuardado)
     val localDateActual = getActualDate()
-    val diff = ChronoUnit.DAYS.between(localDateGuardado, localDateActual)
+    val diff = ChronoUnit.HOURS.between(localDateGuardado, localDateActual)
     return diff > 1
 }
 

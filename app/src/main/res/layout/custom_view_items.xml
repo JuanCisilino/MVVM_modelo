@@ -26,17 +26,10 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:text="Dolar"/>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/oficial"
                 android:textAlignment="center"
                 android:textSize="16sp"
-                android:text="Nombre"
+                android:text="@string/nombre"
                 android:textStyle="bold"/>
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -46,7 +39,7 @@
                 android:layout_marginTop="5dp"
                 android:textAlignment="center"
                 android:textSize="14sp"
-                android:text="Release"
+                android:text="@string/release"
                 android:textStyle="italic"/>
 
         </LinearLayout>
@@ -64,17 +57,10 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:text="Dolar"/>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/blue"
                 android:textAlignment="center"
                 android:textSize="16sp"
-                android:text="Nombre"
+                android:text="@string/nombre"
                 android:textStyle="bold"/>
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -84,7 +70,7 @@
                 android:layout_marginTop="5dp"
                 android:textAlignment="center"
                 android:textSize="14sp"
-                android:text="Release"
+                android:text="@string/release"
                 android:textStyle="italic"/>
 
         </LinearLayout>
@@ -102,18 +88,10 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/titleTextView"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:text="Dolar"/>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/minorista"
                 android:textAlignment="center"
                 android:textSize="16sp"
-                android:text="Nombre"
+                android:text="@string/nombre"
                 android:textStyle="bold"/>
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -123,7 +101,7 @@
                 android:layout_marginTop="5dp"
                 android:textAlignment="center"
                 android:textSize="14sp"
-                android:text="Release"
+                android:text="@string/release"
                 android:textStyle="italic"/>
 
         </LinearLayout>
@@ -151,11 +129,11 @@
                 android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:text="Dolar"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:text="@string/dolar"/>
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -195,7 +173,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:textSize="18sp"
-                    android:text="Dolar"/>
+                    android:text="@string/dolar"/>
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -235,7 +213,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:textSize="18sp"
-                    android:text="Dolar"/>
+                    android:text="@string/dolar"/>
 
                 <FrameLayout
                     android:layout_width="match_parent"
