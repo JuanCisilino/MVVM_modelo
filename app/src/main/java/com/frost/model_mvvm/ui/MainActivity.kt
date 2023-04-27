@@ -9,11 +9,14 @@ import android.view.inputmethod.EditorInfo
 import android.widget.RemoteViews
 import android.widget.TextView
 import androidx.activity.viewModels
+import com.frost.model_mvvm.model.LocalCurrency
+import com.frost.model_mvvm.utils.LoadState
+import com.frost.model_mvvm.utils.getPref
+import com.frost.model_mvvm.utils.hide
+import com.frost.model_mvvm.utils.showToast
+import com.frost.model_mvvm.widget.CurrencyWidget
 import com.frost.model_mvvm.R
 import com.frost.model_mvvm.databinding.ActivityMainBinding
-import com.frost.model_mvvm.model.LocalCurrency
-import com.frost.model_mvvm.utils.*
-import com.frost.model_mvvm.widget.CurrencyWidget
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel.onCreate(this)
+        viewModel.onCreate()
         setListeners()
         subscribeToLiveData()
     }

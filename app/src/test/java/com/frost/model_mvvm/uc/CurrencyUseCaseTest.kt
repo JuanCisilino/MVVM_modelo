@@ -1,7 +1,10 @@
 package com.frost.model_mvvm.uc
 
+import com.frost.model_mvvm.model.Casa
 import com.frost.model_mvvm.model.LocalCurrency
+import com.frost.model_mvvm.model.ValoresPrincipales
 import com.frost.model_mvvm.repository.CurrencyRepository
+import com.frost.model_mvvm.uc.CurrencyUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.RelaxedMockK
@@ -25,10 +28,10 @@ class CurrencyUseCaseTest{
     @Test
     fun `when the api doesnt return anything then return null`() = runBlocking{
         //Given
-        coEvery { currencyUseCase.getBlue() } returns emptyList()
+        coEvery { repository.getValores() } returns emptyList()
 
         //When
-        val response = currencyUseCase.getBlue()
+        val response = currencyUseCase.getValoresPrincipales()
 
         //Then
         assert(response == null)
@@ -37,12 +40,22 @@ class CurrencyUseCaseTest{
 
     @Test
     fun `when the api returns something then return empty list`() = runBlocking{
-        val mockedList = listOf(LocalCurrency(name = "test", v = 0.0))
+        val mockedList = listOf(
+            ValoresPrincipales(
+                Casa(
+                    agencia = "",
+                    compra = "",
+                    decimales= "",
+                    nombre= "",
+                    variacion= "",
+                    venta= "",
+                    ventaCero= ""))
+        )
         //Given
-        coEvery { currencyUseCase.getBlue() } returns mockedList
+        coEvery { repository.getValores() } returns mockedList
 
         //When
-        val response = currencyUseCase.getBlue()
+        val response = currencyUseCase.getValoresPrincipales()
 
         //Then
         assert(response != null)

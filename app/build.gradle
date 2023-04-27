@@ -10,7 +10,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.frost.ModelMVVM"
+        applicationId "com.frost.model_mvvm"
         minSdk 26
         targetSdk 33
         multiDexEnabled true

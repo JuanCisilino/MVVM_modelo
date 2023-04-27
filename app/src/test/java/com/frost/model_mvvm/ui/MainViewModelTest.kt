@@ -1,9 +1,11 @@
 package com.frost.model_mvvm.ui
 
+import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.frost.model_mvvm.model.LocalCurrency
+import com.frost.model_mvvm.model.Casa
 import com.frost.model_mvvm.uc.CurrencyUseCase
 import com.frost.model_mvvm.utils.LoadState
+import com.frost.model_mvvm.ui.MainViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.RelaxedMockK
@@ -41,12 +43,22 @@ class MainViewModelTest{
 
     @Test
     fun `when viewmodel is created at the first time, get all items and set it`() = runTest {
-        val mockedList = listOf(LocalCurrency(name = "test", v = 0.0))
+        val mockedList =
+            listOf(
+                Casa(
+                    agencia = "",
+                    compra = "",
+                    decimales= "",
+                    nombre= "",
+                    variacion= "",
+                    venta= "",
+                    ventaCero= "")
+            )
         //Given
-        coEvery { currencyUseCase.getBlue() } returns mockedList
+        coEvery { currencyUseCase.getValoresPrincipales() } returns mockedList
 
         //When
-        viewModel.onCreate(true)
+        viewModel.onCreate()
 
         //Then
         assert(viewModel.currencyLiveData.value == mockedList)
@@ -55,10 +67,10 @@ class MainViewModelTest{
     @Test
     fun `when search returns null validate live data value as null`() = runTest {
         //Given
-        coEvery { currencyUseCase.getBlue() } returns null
+        coEvery { currencyUseCase.getValoresPrincipales() } returns null
 
         //When
-        viewModel.onCreate(true)
+        viewModel.onCreate()
 
         //Then
         assert(viewModel.currencyLiveData.value == null)
@@ -67,10 +79,10 @@ class MainViewModelTest{
     @Test
     fun `when search returns null validate live data state value as null`() = runTest {
         //Given
-        coEvery { currencyUseCase.getBlue() } returns null
+        coEvery { currencyUseCase.getValoresPrincipales() } returns null
 
         //When
-        viewModel.onCreate(true)
+        viewModel.onCreate()
 
         //Then
         assert(viewModel.loadStateLiveData.value == LoadState.Error)
