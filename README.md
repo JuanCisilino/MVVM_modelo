@@ -8,4 +8,4 @@ Posee un widget de los precios de las 3 divisas mas usadas en el pais, dolar blu
 La app fue realizada con una arquitectura mvvm con injeccion de dependencias a traves de Hilt y mapeo de datos, un organizado sistema donde los casos de uso logran las consultas y a su vez han pasado por un proceso de testeo Unit Testing.
 
 # CI/CD
-La app cuenta con integracion continua implementada, ante un action push o pull request se realiza un buildeo de la app para comprobar que no se suba codigo que no funciona.
+La app cuenta con integracion continua implementada, ante un action push o pull request se realiza un buildeo de la app para comprobar que no se suba codigo que no funciona. Asi como tambien ejecuta los test unitarios y no permite realizar el pull request si tiene fallos.
