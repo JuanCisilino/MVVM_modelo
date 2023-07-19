@@ -43,13 +43,8 @@ class CurrencyUseCaseTest{
         val mockedList = listOf(
             ValoresPrincipales(
                 Casa(
-                    agencia = "",
-                    compra = "",
-                    decimales= "",
                     nombre= "",
-                    variacion= "",
-                    venta= "",
-                    ventaCero= ""))
+                    venta= ""))
         )
         //Given
         coEvery { repository.getValores() } returns mockedList

@@ -80,29 +80,14 @@ class MainViewModelTest{
     private fun getMockedCasaList(): List<Casa>{
         return listOf(
             Casa(
-                agencia = "",
-                compra = "34,56",
-                decimales= "",
                 nombre= "Oficial",
-                variacion= "",
-                venta= "34,56",
-                ventaCero= ""),
+                venta= "34,56"),
             Casa(
-                agencia = "",
-                compra = "34,56",
-                decimales= "",
                 nombre= "Blue",
-                variacion= "",
-                venta= "34,56",
-                ventaCero= ""),
+                venta= "34,56"),
             Casa(
-                agencia = "",
-                compra = "34,56",
-                decimales= "",
                 nombre= "turista",
-                variacion= "",
-                venta= "34,56",
-                ventaCero= "")
+                venta= "34,56")
         )
     }
 
