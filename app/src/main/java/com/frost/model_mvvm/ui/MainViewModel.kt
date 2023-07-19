@@ -68,7 +68,7 @@ class MainViewModel @Inject constructor(private val useCase: CurrencyUseCase): V
         val prefs = context.getSharedPreferences("prefs_file", Context.MODE_PRIVATE)
         prefs.edit()?.clear()?.apply()
         val editor = prefs.edit()
-        finalCurrencyList.forEach { editor.putString(it.name?:"", it.v?:"0.0") }
+        finalCurrencyList.forEach { editor.putString(it.name ?:"", it.v?:"0.0") }
         editor.apply()
     }
 }
