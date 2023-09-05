@@ -53,7 +53,7 @@ class MainViewModel @Inject constructor(private val useCase: CurrencyUseCase): V
         val turista = currencyList.find { it.nombre.contains("Turista") }
         finalCurrencyList.add(LocalCurrency(oficial?.venta, oficial?.nombre))
         finalCurrencyList.add(LocalCurrency(blue?.venta, blue?.nombre))
-        finalCurrencyList.add(LocalCurrency(turista?.venta, turista?.nombre))
+        finalCurrencyList.add(LocalCurrency(turista?.venta, "Turista"))
         check()
     }
 
