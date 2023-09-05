@@ -81,13 +81,13 @@ class MainViewModelTest{
         return listOf(
             Casa(
                 nombre= "Oficial",
-                venta= "34,56"),
+                venta= 34.56),
             Casa(
                 nombre= "Blue",
-                venta= "34,56"),
+                venta= 34.56),
             Casa(
                 nombre= "turista",
-                venta= "34,56")
+                venta= 34.56)
         )
     }
 

@@ -41,10 +41,9 @@ class CurrencyUseCaseTest{
     @Test
     fun `when the api returns something then return empty list`() = runBlocking{
         val mockedList = listOf(
-            ValoresPrincipales(
-                Casa(
-                    nombre= "",
-                    venta= ""))
+            Casa(
+                nombre= "",
+                venta= 0.0)
         )
         //Given
         coEvery { repository.getValores() } returns mockedList
