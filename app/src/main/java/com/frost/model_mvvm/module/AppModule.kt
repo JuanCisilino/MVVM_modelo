@@ -19,7 +19,7 @@ object AppModule {
     @Singleton
     fun provideRetrofit(): CurrencyApi {
         return Retrofit.Builder()
-            .baseUrl("https://www.dolarsi.com/api/")
+            .baseUrl("https://dolarapi.com/v1/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(CurrencyApi::class.java)

@@ -103,9 +103,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setDataOnWidget(views: RemoteViews){
-        val blue = getPref()?.getString("Dolar Blue", "0.0")
-        val oficial = getPref()?.getString("Dolar Oficial", "0.0")
-        val minorista = getPref()?.getString("Dolar turista", "0.0")
+        val blue = getPref()?.getString("Blue", "0.0")
+        val oficial = getPref()?.getString("Oficial", "0.0")
+        val minorista = getPref()?.getString("Turista", "0.0")
         // Construct the RemoteViews object
         views.setTextViewText(R.id.appwidget_blue, "Blue\n$$blue")
         views.setTextViewText(R.id.appwidget_oficial, "Oficial\n$$oficial")

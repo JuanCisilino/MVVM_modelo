@@ -8,7 +8,6 @@ class CurrencyUseCase @Inject constructor(private val repo: CurrencyRepository) 
 
     suspend fun getValoresPrincipales(): List<Casa>? {
         val listWithCasa = repo.getValores()
-        val listToReturn = listWithCasa.map { it.casa }
-        return if (listToReturn.isNotEmpty()) listToReturn else null
+        return if (listWithCasa.isNotEmpty()) listWithCasa else null
     }
 }

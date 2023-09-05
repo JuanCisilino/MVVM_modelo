@@ -50,7 +50,7 @@ class MainViewModel @Inject constructor(private val useCase: CurrencyUseCase): V
         finalCurrencyList.clear()
         val oficial = currencyList.find { it.nombre.contains("Oficial") }
         val blue = currencyList.find { it.nombre.contains("Blue") }
-        val turista = currencyList.find { it.nombre.contains("turista") }
+        val turista = currencyList.find { it.nombre.contains("Turista") }
         finalCurrencyList.add(LocalCurrency(oficial?.venta, oficial?.nombre))
         finalCurrencyList.add(LocalCurrency(blue?.venta, blue?.nombre))
         finalCurrencyList.add(LocalCurrency(turista?.venta, turista?.nombre))
@@ -68,7 +68,7 @@ class MainViewModel @Inject constructor(private val useCase: CurrencyUseCase): V
         val prefs = context.getSharedPreferences("prefs_file", Context.MODE_PRIVATE)
         prefs.edit()?.clear()?.apply()
         val editor = prefs.edit()
-        finalCurrencyList.forEach { editor.putString(it.name ?:"", it.v?:"0.0") }
+        finalCurrencyList.forEach { editor.putString(it.name ?:"", it.v.toString()) }
         editor.apply()
     }
 }

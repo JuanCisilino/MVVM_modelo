@@ -38,16 +38,16 @@ class ItemsCustomView @JvmOverloads constructor(
     fun updateItems(list: List<LocalCurrency>) {
         val localBlue = list.find { it.name?.contains("Blue") == true }
         val localOficial = list.find { it.name?.contains("Oficial") == true }
-        val localMinorista = list.find { it.name?.contains("turista") == true}
+        val localMinorista = list.find { it.name?.contains("Turista") == true}
         with(binding){
             blue.text = localBlue?.name
-            bluePrice.text = localBlue?.v
+            bluePrice.text = localBlue?.v.toString()
 
             oficial.text = localOficial?.name
-            oficialPrice.text = localOficial?.v
+            oficialPrice.text = localOficial?.v.toString()
 
             minorista.text = localMinorista?.name
-            minoristaPrice.text = localMinorista?.v
+            minoristaPrice.text = localMinorista?.v.toString()
         }
     }
 

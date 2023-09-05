@@ -1,5 +1,6 @@
 package com.frost.model_mvvm.repository
 
+import com.frost.model_mvvm.model.Casa
 import com.frost.model_mvvm.model.ValoresPrincipales
 import com.frost.model_mvvm.service.CurrencyApi
 import kotlinx.coroutines.Dispatchers
@@ -8,7 +9,7 @@ import javax.inject.Inject
 
 class CurrencyRepository@Inject constructor(private val api: CurrencyApi) {
 
-    suspend fun getValores(): List<ValoresPrincipales>{
+    suspend fun getValores(): List<Casa>{
         return withContext(Dispatchers.IO){
             val response = api.getTodos()
             response.body() ?: emptyList()

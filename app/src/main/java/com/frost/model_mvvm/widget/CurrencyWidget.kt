@@ -48,9 +48,9 @@ class CurrencyWidget : AppWidgetProvider() {
 
 internal fun getDataAndSetView(context: Context, views: RemoteViews){
     val sharedPreferences = context.getSharedPreferences("prefs_file", Context.MODE_PRIVATE)
-    val blue = sharedPreferences?.getString("Dolar Blue", "0.0")
-    val oficial = sharedPreferences?.getString("Dolar Oficial", "0.0")
-    val minorista = sharedPreferences?.getString("Dolar turista", "0.0")
+    val blue = sharedPreferences?.getString("Blue", "0.0")
+    val oficial = sharedPreferences?.getString("Oficial", "0.0")
+    val minorista = sharedPreferences?.getString("Turista", "0.0")
     // Construct the RemoteViews object
     views.setTextViewText(R.id.appwidget_blue, "Blue\n$$blue")
     views.setTextViewText(R.id.appwidget_oficial, "Oficial\n$$oficial")
