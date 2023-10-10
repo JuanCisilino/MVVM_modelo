@@ -7,8 +7,6 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.frost.model_mvvm.databinding.CustomViewItemsBinding
 import com.frost.model_mvvm.model.LocalCurrency
-import java.text.NumberFormat
-import java.util.*
 
 class ItemsCustomView @JvmOverloads constructor(
     context: Context,
@@ -19,35 +17,37 @@ class ItemsCustomView @JvmOverloads constructor(
     private var binding: CustomViewItemsBinding =
         CustomViewItemsBinding.inflate(LayoutInflater.from(context), this, true)
 
+    private lateinit var localBlue : LocalCurrency
+    private lateinit var localOficial : LocalCurrency
+    private lateinit var localMinorista : LocalCurrency
+
     var onClickCallback: ((value: Double) -> Unit)?= null
 
     init {
         with(binding){
-            blueLayout.setOnClickListener { onClickCallback?.invoke(toDouble(bluePrice.text.toString())) }
-            oficialLayout.setOnClickListener { onClickCallback?.invoke(toDouble(oficialPrice.text.toString())) }
-            minoristaLayout.setOnClickListener { onClickCallback?.invoke(toDouble(minoristaPrice.text.toString())) }
+            blueLayout.setOnClickListener { onClickCallback?.invoke(localBlue.v?:0.0) }
+            oficialLayout.setOnClickListener { onClickCallback?.invoke(localOficial.v?:0.0) }
+            minoristaLayout.setOnClickListener { onClickCallback?.invoke(localMinorista.v?:0.0) }
         }
     }
 
-    private fun toDouble(value: String): Double {
-        val format = NumberFormat.getInstance(Locale.getDefault())
-        val number = format.parse(value)
-        return number?.toDouble()?:0.0
+    fun updateItems(list: List<LocalCurrency>) {
+        localBlue = list.find { it.name?.contains("Blue") == true }?: LocalCurrency(0.0, "")
+        localOficial = list.find { it.name?.contains("Oficial") == true }?: LocalCurrency(0.0, "")
+        localMinorista = list.find { it.name?.contains("Turista") == true}?: LocalCurrency(0.0, "")
+        bindValues()
     }
 
-    fun updateItems(list: List<LocalCurrency>) {
-        val localBlue = list.find { it.name?.contains("Blue") == true }
-        val localOficial = list.find { it.name?.contains("Oficial") == true }
-        val localMinorista = list.find { it.name?.contains("Turista") == true}
+    private fun bindValues() {
         with(binding){
-            blue.text = localBlue?.name
-            bluePrice.text = localBlue?.v.toString()
+            blue.text = localBlue.name
+            bluePrice.text = localBlue.v.toString()
 
-            oficial.text = localOficial?.name
-            oficialPrice.text = localOficial?.v.toString()
+            oficial.text = localOficial.name
+            oficialPrice.text = localOficial.v.toString()
 
-            minorista.text = localMinorista?.name
-            minoristaPrice.text = localMinorista?.v.toString()
+            minorista.text = localMinorista.name
+            minoristaPrice.text = localMinorista.v.toString()
         }
     }
 

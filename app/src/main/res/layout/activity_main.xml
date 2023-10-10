@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.frost.model_mvvm.com.frost.modelMvvm.ui.MainActivity">
+    tools:context="com.frost.model_mvvm.ui.MainActivity">
 
     <com.frost.model_mvvm.ui.cv.ItemsCustomView
         android:id="@+id/customView"
@@ -43,8 +43,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:inputType="number"
-        android:text="0.00"
+        android:inputType="numberDecimal"
+        android:text="00"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/selectedTextView"
         app:layout_constraintStart_toStartOf="parent"
